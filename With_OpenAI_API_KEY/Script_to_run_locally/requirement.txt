@@ -1,0 +1,8 @@
+# To run it locally, check the following and run the following commands in the terminal in the following order.
+
+cd "your directory"
+python -m venv venv
+venv\Scripts\activate
+
+pip install gradio google-genai PyPDF2 fpdf2
+python resume_optimizer.py

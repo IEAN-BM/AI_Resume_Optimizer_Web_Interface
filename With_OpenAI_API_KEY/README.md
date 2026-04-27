@@ -24,7 +24,7 @@ If you just want to run the tool locally:
 2.  **Set API Keys**: Create a `.env` file in the `backend/` folder with your `OPENAI_API_KEY`.
 3.  **Launch Backend**:
     ```bash
-    cd backend
+    cd resume_optimizer_backend
     python -m venv venv
     .\venv\Scripts\activate
     pip install -r requirements.txt
@@ -32,7 +32,7 @@ If you just want to run the tool locally:
     ```
 4.  **Launch Frontend**:
     ```bash
-    cd frontend
+    cd resume-optimizer-frontend
     npm install
     npm run dev
     ```

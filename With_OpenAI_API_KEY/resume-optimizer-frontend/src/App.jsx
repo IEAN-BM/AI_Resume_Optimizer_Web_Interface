@@ -64,20 +64,19 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
+    <div className="min-h-screen bg-navy-950 text-slate-100">
       {/* Top nav */}
-      <nav className="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between shadow-sm">
+      <nav className="glass-nav px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="text-2xl">🚀</span>
-          <span className="font-bold text-lg tracking-tight text-slate-800">Resume Optimizer</span>
-          <span className="text-xs text-slate-500 hidden sm:block">
+          <span className="text-2xl drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]">🚀</span>
+          <span className="font-bold text-xl tracking-tight text-white">Resume Optimizer</span>
+          <span className="text-xs text-slate-400 hidden sm:block">
             powered by OpenAI
           </span>
         </div>
         <button
           onClick={() => setShowSaved(!showSaved)}
-          className="text-sm px-4 py-2 bg-slate-100 hover:bg-slate-200
-                     rounded-lg text-slate-700 transition-colors border border-slate-200"
+          className="btn-secondary text-sm"
         >
           {showSaved ? "← Back to Optimizer" : "📂 Saved Resumes"}
         </button>

@@ -28,25 +28,28 @@ export default function SavedResumes({ refresh }) {
   }, [filter, refresh]);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex items-center justify-between">
-        <h3 className="font-semibold text-slate-800">
-          📂 Saved Resumes
-          <span className="ml-2 text-xs text-slate-500 font-normal">
-            ({resumes.length} total)
-          </span>
-        </h3>
+        <div className="space-y-1">
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-500">Repository</span>
+          <h3 className="font-bold text-xl text-white">
+            📂 Saved Resumes
+            <span className="ml-3 text-xs text-slate-500 font-bold bg-white/5 px-2 py-0.5 rounded-full">
+              {resumes.length}
+            </span>
+          </h3>
+        </div>
       </div>
 
       {/* Category filter */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 bg-navy-900/30 p-2 rounded-2xl border border-white/5">
         {CATEGORIES.map((cat) => (
           <button
             key={cat}
             onClick={() => setFilter(cat)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${filter === cat
-                ? "bg-navy-600 text-white shadow-sm"
-                : "bg-white text-slate-600 hover:text-slate-900 border border-slate-200 hover:border-slate-300"
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${filter === cat
+                ? "bg-cyan-600 text-white shadow-lg shadow-cyan-900/40"
+                : "text-slate-500 hover:text-slate-300 hover:bg-white/5"
               }`}
           >
             {cat}
@@ -55,46 +58,51 @@ export default function SavedResumes({ refresh }) {
       </div>
 
       {loading && (
-        <p className="text-slate-500 text-sm text-center py-10">Loading...</p>
-      )}
-
-      {error && (
-        <p className="text-red-600 text-sm">{error}</p>
-      )}
-
-      {!loading && !error && resumes.length === 0 && (
-        <div className="text-center py-12 text-slate-400">
-          <div className="text-5xl mb-3">📭</div>
-          <p>No saved resumes yet in this category.</p>
+        <div className="flex flex-col items-center justify-center py-20 gap-4">
+          <div className="w-8 h-8 border-4 border-cyan-500/20 border-t-cyan-500 rounded-full animate-spin" />
+          <p className="text-slate-500 text-xs font-bold uppercase tracking-widest">Accessing Database...</p>
         </div>
       )}
 
-      <div className="space-y-3">
+      {error && (
+        <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm text-center font-medium">
+          ⚠️ {error}
+        </div>
+      )}
+
+      {!loading && !error && resumes.length === 0 && (
+        <div className="text-center py-20 glass-card">
+          <div className="text-6xl mb-4 opacity-20">📭</div>
+          <p className="text-slate-500 font-medium">No saved resumes found in this category.</p>
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 gap-4">
         {resumes.map((r) => (
           <div
             key={r.id}
-            className="bg-white border border-slate-200 rounded-xl px-5 py-4 shadow-sm
-                       flex items-center justify-between hover:border-slate-300
-                       transition-colors"
+            className="glass-card px-6 py-5 flex items-center justify-between hover:border-cyan-500/30 
+                       hover:bg-cyan-500/[0.02] transition-all group/item"
           >
-            <div>
-              <p className="text-sm font-medium text-slate-800">{r.filename}</p>
-              <p className="text-xs text-slate-500 mt-0.5">
-                {r.category} ·{" "}
-                {new Date(r.created_at).toLocaleDateString("en-GB", {
-                  day: "numeric", month: "short", year: "numeric",
-                  hour: "2-digit", minute: "2-digit",
-                })}
-              </p>
+            <div className="space-y-1">
+              <p className="text-sm font-bold text-white group-hover/item:text-cyan-400 transition-colors">{r.filename}</p>
+              <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                <span className="text-cyan-500/50">{r.category}</span>
+                <span>•</span>
+                <span>
+                  {new Date(r.created_at).toLocaleDateString("en-GB", {
+                    day: "numeric", month: "short", year: "numeric"
+                  })}
+                </span>
+              </div>
             </div>
             <a
               href={r.public_url}
               target="_blank"
               rel="noreferrer"
-              className="px-4 py-2 bg-navy-600 hover:bg-navy-700 rounded-lg
-                         text-xs font-medium text-white transition-colors flex-shrink-0 shadow-sm"
+              className="btn-secondary py-2 px-4 text-xs font-bold hover:bg-cyan-600 hover:text-white hover:border-cyan-600 group-hover/item:shadow-lg transition-all"
             >
-              {r.format === "pdf" ? "📄 Download PDF" : "💾 Download TXT"}
+              {r.format === "pdf" ? "📄 PDF" : "💾 TXT"}
             </a>
           </div>
         ))}

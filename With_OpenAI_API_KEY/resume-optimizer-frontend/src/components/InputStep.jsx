@@ -28,23 +28,23 @@ export default function InputStep({ onNext, loading, setLoading }) {
   const canProceed = resumeText.trim() && jobDesc.trim();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       {/* Resume input */}
-      <div>
-        <label className="block text-sm font-semibold text-slate-300 mb-3">
-          📄 Your Resume
+      <div className="glass-card p-6">
+        <label className="block text-xs font-bold uppercase tracking-widest text-cyan-500 mb-4">
+          📄 Step 1: Your Resume
         </label>
 
         {/* Tabs */}
-        <div className="flex gap-1 mb-3 bg-slate-900 p-1 rounded-lg w-fit">
+        <div className="flex gap-1 mb-4 bg-navy-950 p-1 rounded-xl w-fit border border-white/5">
           {["paste", "upload"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
+              className={`px-6 py-2 rounded-lg text-sm font-semibold transition-all ${
                 activeTab === tab
-                  ? "bg-navy-800 text-white"
-                  : "text-slate-400 hover:text-slate-200"
+                  ? "bg-cyan-600 text-white shadow-lg"
+                  : "text-slate-500 hover:text-slate-300"
               }`}
             >
               {tab === "paste" ? "✏️ Paste" : "📎 Upload"}
@@ -57,21 +57,21 @@ export default function InputStep({ onNext, loading, setLoading }) {
             value={resumeText}
             onChange={(e) => setResumeText(e.target.value)}
             placeholder="Paste your resume text here..."
-            rows={10}
-            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3
-                       text-slate-200 placeholder-slate-600 text-sm resize-none
-                       focus:outline-none focus:border-navy-600 transition-colors"
+            rows={8}
+            className="w-full bg-navy-950/50 border border-white/10 rounded-xl px-4 py-4
+                       text-slate-100 placeholder-slate-600 text-sm resize-none
+                       focus:outline-none focus:border-cyan-500/30 transition-all focus:ring-1 focus:ring-cyan-500/20"
           />
         ) : (
           <div
             onClick={() => fileRef.current.click()}
-            className="border-2 border-dashed border-slate-700 hover:border-navy-600
-                       rounded-xl p-10 text-center cursor-pointer transition-colors group"
+            className="border-2 border-dashed border-white/10 hover:border-cyan-500/50 hover:bg-cyan-500/5
+                       rounded-2xl p-12 text-center cursor-pointer transition-all group"
           >
-            <div className="text-4xl mb-3">📁</div>
-            <p className="text-slate-400 group-hover:text-slate-200 transition-colors">
-              Click to upload <span className="text-navy-400">.pdf</span> or{" "}
-              <span className="text-navy-400">.txt</span>
+            <div className="text-5xl mb-4 grayscale group-hover:grayscale-0 transition-all">📁</div>
+            <p className="text-slate-400 group-hover:text-slate-200 transition-colors font-medium">
+              Click to upload <span className="text-cyan-400">.pdf</span> or{" "}
+              <span className="text-cyan-400">.txt</span>
             </p>
             <input
               ref={fileRef}
@@ -84,39 +84,38 @@ export default function InputStep({ onNext, loading, setLoading }) {
         )}
 
         {uploadStatus && (
-          <p className="text-xs mt-2 text-slate-400">{uploadStatus}</p>
+          <p className="text-xs mt-3 text-cyan-400/80 font-medium">{uploadStatus}</p>
         )}
       </div>
 
       {/* Job description */}
-      <div>
-        <label className="block text-sm font-semibold text-slate-300 mb-3">
-          💼 Job Description
+      <div className="glass-card p-6">
+        <label className="block text-xs font-bold uppercase tracking-widest text-cyan-500 mb-4">
+          💼 Step 2: Job Description
         </label>
         <textarea
           value={jobDesc}
           onChange={(e) => setJobDesc(e.target.value)}
           placeholder="Paste the job description here..."
-          rows={10}
-          className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3
-                     text-slate-200 placeholder-slate-600 text-sm resize-none
-                     focus:outline-none focus:border-navy-600 transition-colors"
+          rows={8}
+          className="w-full bg-navy-950/50 border border-white/10 rounded-xl px-4 py-4
+                     text-slate-100 placeholder-slate-600 text-sm resize-none
+                     focus:outline-none focus:border-cyan-500/30 transition-all focus:ring-1 focus:ring-cyan-500/20"
         />
       </div>
 
       <button
         onClick={() => onNext(resumeText, jobDesc)}
         disabled={!canProceed || loading}
-        className="w-full py-3.5 bg-navy-800 hover:bg-navy-700 disabled:opacity-40
-                   disabled:cursor-not-allowed rounded-xl font-semibold text-white
-                   transition-all duration-200 flex items-center justify-center gap-2"
+        className="btn-primary w-full py-4 text-base tracking-wide flex items-center justify-center gap-3"
       >
         {loading ? (
           <>
-            <span className="animate-spin">⏳</span> Analysing...
+            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            Analysing...
           </>
         ) : (
-          "🔍 Analyse Resume vs Job Description →"
+          <>🔍 Analyse Resume vs Job Description</>
         )}
       </button>
     </div>

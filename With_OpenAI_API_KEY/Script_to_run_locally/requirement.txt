@@ -2,7 +2,8 @@
 
 cd "your directory"
 python -m venv venv
-venv\Scripts\activate
+/\venv\Scripts\activate
 
 pip install gradio google-genai PyPDF2 fpdf2
+pip install requests
 python resume_optimizer.py
